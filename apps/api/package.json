@@ -12,8 +12,9 @@
     "test:watch": "vitest",
     "test:unit": "vitest run --dir src",
     "test:integration": "vitest run tests/integration",
-    "db:push": "drizzle-kit push:mysql",
-    "db:migrate": "drizzle-kit generate:mysql && tsx src/database/migrate.ts",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit generate && tsx src/database/migrate.ts",
     "db:seed": "tsx src/database/seeds/index.ts",
     "db:studio": "drizzle-kit studio",
     "clean": "rm -rf dist .turbo node_modules"

@@ -2,8 +2,18 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  output: 'standalone',
   images: {
-    domains: ['cdn.financeblog.com', 's3.amazonaws.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.financeblog.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 's3.amazonaws.com',
+      },
+    ],
     formats: ['image/avif', 'image/webp'],
   },
   experimental: {

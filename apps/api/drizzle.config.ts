@@ -4,11 +4,11 @@ import { config as dotenvConfig } from 'dotenv';
 dotenvConfig();
 
 export default {
-  schema: './src/database/schema/*',
+  schema: './src/database/schema/index.ts',
   out: './src/database/migrations',
-  driver: 'mysql2',
+  dialect: 'mysql',
   dbCredentials: {
-    connectionString: process.env.DATABASE_URL!,
+    url: process.env.DATABASE_URL!,
   },
   verbose: true,
   strict: true,
