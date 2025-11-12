@@ -1,0 +1,23 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "lib": ["ES2022"],
+    "moduleResolution": "node",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/modules/*": ["./src/modules/*"],
+      "@/core/*": ["./src/core/*"],
+      "@/shared/*": ["./src/shared/*"],
+      "@/database/*": ["./src/database/*"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "tests"]
+}
