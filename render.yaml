@@ -1,0 +1,67 @@
+# Render.com Blueprint
+# Deploy completo com um clique: https://render.com/deploy
+
+services:
+  # Backend API
+  - type: web
+    name: finance-blog-api
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: apps/api
+    buildCommand: pnpm install && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3001
+      - key: DATABASE_URL
+        fromDatabase:
+          name: finance-blog-db
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: finance-blog-redis
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_EXPIRES_IN
+        value: 15m
+      - key: JWT_REFRESH_EXPIRES_IN
+        value: 7d
+      - key: CORS_ORIGIN
+        sync: false
+      - key: LOG_LEVEL
+        value: info
+    healthCheckPath: /health
+
+  # Frontend Web
+  - type: web
+    name: finance-blog-web
+    runtime: node
+    region: oregon
+    plan: free
+    branch: main
+    rootDir: apps/web
+    buildCommand: pnpm install && pnpm build
+    startCommand: pnpm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_API_URL
+        value: https://finance-blog-api.onrender.com/api
+
+databases:
+  - name: finance-blog-db
+    databaseName: financeblog
+    user: financeblog
+    plan: free
+
+  - name: finance-blog-redis
+    plan: free
+    maxmemoryPolicy: allkeys-lru
