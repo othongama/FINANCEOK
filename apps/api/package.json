@@ -2,10 +2,17 @@
   "name": "@finance-blog/api",
   "version": "1.0.0",
   "private": true,
+  "engines": {
+    "node": "20.x",
+    "npm": ">=9.0.0"
+  },
   "scripts": {
     "dev": "tsx watch src/main.ts",
     "build": "tsc",
     "start": "node dist/main.js",
+    "postinstall": "tsc",
+    "railway:build": "npm install && npm run build",
+    "railway:start": "node dist/main.js",
     "lint": "eslint . --ext .ts",
     "type-check": "tsc --noEmit",
     "test": "vitest run",
